@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth bg-[#F8FAFC]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBT Evaluasi Termodinamika Teknik - VeloTherm LMS</title>
+  <meta name="description" content="Computer-Based Test (CBT) Evaluasi Bab 2: Energy and the First Law of Thermodynamics - VeloTherm.">
+
+  <!-- Google Fonts: Oswald (Motorsport Heading), Chakra Petch (Technical Accent), Inter (Clean Body), & JetBrains Mono (Digital Timer & Formula) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome CDN for Automotive & CBT Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#DC2626',
+              crimson: '#E11D48',
+              darkRed: '#991B1B',
+              charcoal: '#0F172A',
+              zincDark: '#18181B',
+              bgLight: '#F8FAFC',
+              surface: '#FFFFFF',
+              border: '#E2E8F0',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Oswald', 'sans-serif'],
+            tech: ['Chakra Petch', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          boxShadow: {
+            'glow-red': '0 0 20px -3px rgba(220, 38, 38, 0.4)',
+            'card-clean': '0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .font-racing {
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.03em;
+    }
+    .chamfer-tag {
+      clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+    }
+    .chamfer-btn {
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
+    .chamfer-card {
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+    /* Pulse glow for timer warning */
+    .timer-warning {
+      animation: timer-pulse 1.2s infinite ease-in-out;
+    }
+    @keyframes timer-pulse {
+      0%, 100% { color: #DC2626; opacity: 1; }
+      50% { color: #E11D48; opacity: 0.4; }
+    }
+  </style>
+</head>
+
+<body class="bg-brand-bgLight text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-red selection:text-white">
+
+  <!-- ==========================================
+       HEADER LMS: CBT EVALUATION TOP BAR
+  =========================================== -->
+  <header class="sticky top-0 z-40 bg-white border-b border-brand-border shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- Sisi Kiri: Logo CBT & Tombol Kembali -->
+        <div class="flex items-center gap-4 sm:gap-6">
+          <a href="index.html" class="flex items-center gap-3 group focus:outline-none">
+            <div class="w-10 h-10 bg-brand-charcoal text-white flex items-center justify-center chamfer-btn shadow-sm group-hover:bg-brand-red transition-colors">
+              <i class="fa-solid fa-gauge-high text-lg"></i>
+            </div>
+            <div>
+              <span class="font-racing text-xl sm:text-2xl font-bold tracking-wider text-brand-charcoal flex items-center gap-1">
+                VELO<span class="text-brand-red">THERM</span>
+                <span class="text-[10px] font-tech px-1.5 py-0.5 bg-red-100 text-brand-red font-bold chamfer-tag">CBT</span>
+              </span>
+              <span class="hidden sm:block text-[9px] font-mono tracking-widest text-slate-500 uppercase -mt-0.5">
+                Bab 2: Energy &amp; The First Law
+              </span>
+            </div>
+          </a>
+
+          <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+
+          <a href="index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-tech font-semibold text-slate-600 hover:text-brand-red hover:bg-slate-100 transition-colors">
+            <i class="fa-solid fa-arrow-left text-[10px]"></i>
+            <span class="hidden md:inline">Kembali ke Portal Materi</span>
+            <span class="md:hidden">Portal</span>
+          </a>
+        </div>
+
+        <!-- Sisi Kanan: Digital Countdown Timer bergaya Monospace Merah Balap -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <div class="flex items-center gap-2.5 px-4 py-2 bg-red-50 border-2 border-brand-red/40 chamfer-tag">
+            <i class="fa-solid fa-stopwatch text-brand-red text-sm animate-pulse"></i>
+            <div class="text-right">
+              <span class="text-[9px] font-tech uppercase text-slate-500 font-bold block leading-none">WAKTU TERSISA</span>
+              <span id="countdownTimer" class="font-mono text-base sm:text-lg font-bold text-brand-red tracking-wider leading-none">
+                30:00
+              </span>
+            </div>
+          </div>
+
+          <!-- Mobile Toggle Drawer Button -->
+          <button id="btnToggleNavDrawer" type="button" class="lg:hidden p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 chamfer-tag border border-slate-300" aria-label="Buka Daftar Soal">
+            <i class="fa-solid fa-list-ol text-sm"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ==========================================
+       BODY LMS: 2-KOLOM (SIDEBAR NAV + WORKSPACE)
+  =========================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <div class="flex flex-col lg:flex-row gap-6 items-start">
+
+      <!-- ==========================================
+           KOLOM KIRI: SIDEBAR NAVIGASI NOMOR SOAL
+      =========================================== -->
+      <aside id="sidebarDrawer" class="w-full lg:w-80 shrink-0 bg-white border border-brand-border chamfer-card shadow-card-clean p-5 space-y-5">
+        
+        <!-- Header Sidebar -->
+        <div class="space-y-1.5 border-b border-slate-100 pb-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-racing text-lg font-bold uppercase text-brand-charcoal">
+              Daftar Nomor Soal
+            </h3>
+            <span class="px-2 py-0.5 bg-slate-100 text-slate-600 font-mono text-xs font-bold chamfer-tag">
+              <span id="answeredCounter">0</span> / 25
+            </span>
+          </div>
+          <p class="text-[11px] font-tech text-slate-500 uppercase tracking-wide">
+            Moran &amp; Shapiro Chapter 2
+          </p>
+        </div>
+
+        <!-- Kisi Grid Nomor Soal (Grid 5 Kolom: 1 - 25) -->
+        <div>
+          <div id="questionNumberGrid" class="grid grid-cols-5 gap-2.5">
+            <!-- Dynamically Rendered via JS: 25 Tiles -->
+          </div>
+        </div>
+
+        <!-- Legend / Keterangan Status -->
+        <div class="pt-4 border-t border-slate-100 space-y-2 text-xs font-tech">
+          <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">KETERANGAN STATUS:</span>
+          
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 rounded-none bg-white border border-slate-300"></div>
+              <span class="text-slate-600 text-[11px]">Belum Dijawab</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 rounded-none bg-brand-charcoal text-white text-[8px] flex items-center justify-center font-bold">✓</div>
+              <span class="text-slate-600 text-[11px]">Sudah Dijawab</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 rounded-none bg-red-50 border-2 border-brand-red"></div>
+              <span class="text-brand-red font-bold text-[11px]">Sedang Dibuka</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 rounded-none bg-amber-100 border-2 border-amber-500"></div>
+              <span class="text-amber-800 font-bold text-[11px]">Ragu-Ragu</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Akhiri Ujian Cepat -->
+        <div class="pt-3 border-t border-slate-100">
+          <button type="button" onclick="promptSubmitExam()" class="w-full py-3 bg-slate-900 hover:bg-brand-red text-white font-tech font-bold text-xs uppercase tracking-wider chamfer-btn transition-colors flex items-center justify-center gap-2 shadow-sm">
+            <i class="fa-solid fa-flag-checkered text-xs"></i>
+            <span>Selesaikan &amp; Kumpulkan</span>
+          </button>
+        </div>
+
+      </aside>
+
+
+      <!-- ==========================================
+           KOLOM KANAN: WORKSPACE SOAL UTAMA (FLEX-1)
+      =========================================== -->
+      <section class="flex-1 w-full bg-white border border-brand-border chamfer-card shadow-card-clean p-6 sm:p-8 flex flex-col justify-between min-h-[580px]">
+        
+        <!-- Top Bar Soal -->
+        <div>
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+            <div class="flex items-center gap-3">
+              <span id="currentQuestionLabel" class="font-racing text-2xl font-bold uppercase text-brand-charcoal tracking-wide">
+                Soal Nomor 01
+              </span>
+              <span class="px-2.5 py-0.5 bg-slate-100 border border-slate-200 text-slate-600 text-xs font-mono font-bold chamfer-tag">
+                Bobot: 4 Poin
+              </span>
+            </div>
+
+            <!-- Tombol Tandai Ragu-Ragu -->
+            <button id="btnFlagQuestion" type="button" onclick="toggleFlagCurrentQuestion()" class="inline-flex items-center gap-2 px-3 py-1.5 rounded text-xs font-tech font-bold transition-all border border-slate-300 text-slate-600 hover:border-amber-500 hover:text-amber-600">
+              <i class="fa-solid fa-flag text-xs" id="flagIcon"></i>
+              <span id="flagText">Tandai Ragu</span>
+            </button>
+          </div>
+
+          <!-- Teks Pertanyaan -->
+          <div class="mb-8">
+            <h2 id="questionText" class="text-lg sm:text-xl font-medium text-slate-900 leading-relaxed">
+              Memuat naskah soal...
+            </h2>
+          </div>
+
+          <!-- Opsi Jawaban (A, B, C, D) -->
+          <div id="optionsContainer" class="space-y-3.5 mb-8">
+            <!-- Dynamic Options Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Bottom Bar: Aksi Navigasi Soal -->
+        <div class="pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 font-tech">
+          
+          <!-- Tombol Sebelumnya -->
+          <button id="btnPrevQuestion" type="button" onclick="navigateQuestion(currentQuestionIdx - 1)" class="inline-flex items-center gap-2 px-5 py-3 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs uppercase tracking-wider chamfer-btn border border-slate-300 disabled:opacity-30 disabled:cursor-not-allowed transition-all">
+            <i class="fa-solid fa-arrow-left text-xs"></i>
+            <span>Soal Sebelumnya</span>
+          </button>
+
+          <!-- Tombol Tengah & Selanjutnya -->
+          <div class="flex items-center gap-3">
+            <button id="btnNextQuestion" type="button" onclick="navigateQuestion(currentQuestionIdx + 1)" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-charcoal hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider chamfer-btn transition-all">
+              <span>Soal Selanjutnya</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+
+            <!-- Tombol Kumpulkan Ujian -->
+            <button id="btnSubmitFinal" type="button" onclick="promptSubmitExam()" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-crimson text-white font-bold text-xs uppercase tracking-wider chamfer-btn shadow-glow-red transition-all">
+              <i class="fa-solid fa-check-double text-xs"></i>
+              <span>Kumpulkan Ujian</span>
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+
+  <!-- ==========================================
+       MODAL 1: KONFIRMASI PENGUMPULAN UJIAN
+  =========================================== -->
+  <div id="confirmModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div class="bg-white max-w-md w-full chamfer-card border-2 border-slate-300 shadow-2xl p-6 sm:p-8 space-y-5 text-center">
+      <div class="w-14 h-14 mx-auto bg-red-100 text-brand-red flex items-center justify-center text-2xl chamfer-tag">
+        <i class="fa-solid fa-file-circle-check"></i>
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="font-racing text-2xl font-bold uppercase text-brand-charcoal">
+          Kumpulkan Evaluasi Ujian?
+        </h3>
+        <p class="text-xs text-slate-500">
+          Pastikan seluruh nomor telah ditinjau dengan seksama sebelum menyelesaikan sesi.
+        </p>
+      </div>
+
+      <!-- Ringkasan Status Pengerjaan -->
+      <div class="grid grid-cols-3 gap-2 p-3 bg-slate-50 border border-slate-200 chamfer-tag font-mono text-xs">
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase">Terjawab</span>
+          <span id="modalStatAnswered" class="font-bold text-emerald-700 text-base">0</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase">Ragu-Ragu</span>
+          <span id="modalStatFlagged" class="font-bold text-amber-600 text-base">0</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase">Kosong</span>
+          <span id="modalStatEmpty" class="font-bold text-rose-600 text-base">25</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center gap-3 pt-2 font-tech">
+        <button type="button" onclick="closeConfirmModal()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase tracking-wider chamfer-btn">
+          Periksa Lagi
+        </button>
+        <button type="button" onclick="executeSubmitExam()" class="flex-1 py-3 bg-brand-red hover:bg-brand-crimson text-white font-bold text-xs uppercase tracking-wider chamfer-btn shadow-glow-red">
+          Ya, Kumpulkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       MODAL 2: KARTU HASIL EVALUASI AKHIR
+  =========================================== -->
+  <div id="resultModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+    <div class="bg-white max-w-xl w-full chamfer-card border-2 border-brand-red shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header Bar -->
+      <div class="bg-brand-charcoal text-white p-6 border-b-2 border-brand-red flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono text-brand-red uppercase tracking-widest font-bold block">
+            LAPORAN EVALUASI RESMI
+          </span>
+          <h3 class="font-racing text-2xl font-bold uppercase tracking-wide">
+            Hasil Penilaian Ujian CBT
+          </h3>
+        </div>
+        <div class="w-12 h-12 bg-red-950/80 border border-brand-red text-brand-red flex items-center justify-center text-xl chamfer-tag">
+          <i class="fa-solid fa-award"></i>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 sm:p-8 space-y-6 text-center">
+        
+        <!-- Big Final Score Display -->
+        <div class="p-6 bg-slate-50 border border-slate-200 chamfer-tag inline-block min-w-[240px]">
+          <span class="text-xs font-tech uppercase text-slate-500 font-bold block mb-1">SKOR AKHIR MAHASISWA</span>
+          <div class="flex items-baseline justify-center gap-1">
+            <span id="finalScoreNumber" class="font-racing text-6xl font-bold text-brand-red">0</span>
+            <span class="text-slate-400 font-mono text-lg font-bold">/ 100</span>
+          </div>
+          <span id="finalScorePredicate" class="inline-block mt-2 px-3 py-1 bg-red-100 text-brand-red text-xs font-tech font-bold uppercase chamfer-tag">
+            Predikat: Memuaskan
+          </span>
+        </div>
+
+        <!-- 3 Kolom Metrik Jawaban -->
+        <div class="grid grid-cols-3 gap-3 font-mono text-xs">
+          <div class="p-3 bg-emerald-50 border border-emerald-200 chamfer-tag">
+            <span class="text-emerald-700 block font-bold text-[10px] uppercase">BENAR</span>
+            <span id="resultCountCorrect" class="text-xl font-bold text-emerald-800">0</span>
+          </div>
+          <div class="p-3 bg-rose-50 border border-rose-200 chamfer-tag">
+            <span class="text-rose-700 block font-bold text-[10px] uppercase">SALAH</span>
+            <span id="resultCountWrong" class="text-xl font-bold text-rose-800">0</span>
+          </div>
+          <div class="p-3 bg-slate-100 border border-slate-200 chamfer-tag">
+            <span class="text-slate-600 block font-bold text-[10px] uppercase">KOSONG</span>
+            <span id="resultCountEmpty" class="text-xl font-bold text-slate-800">0</span>
+          </div>
+        </div>
+
+        <p id="resultAdviceText" class="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+          Evaluasi pemahaman konsep Bab 2: Energy &amp; The First Law of Thermodynamics telah selesai tercatat.
+        </p>
+
+        <!-- Actions -->
+        <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-center gap-3 font-tech">
+          <button type="button" onclick="enterReviewMode()" class="w-full sm:w-auto px-6 py-3 bg-brand-charcoal hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider chamfer-btn">
+            <i class="fa-solid fa-magnifying-glass mr-1.5"></i>
+            <span>Review Kunci Jawaban</span>
+          </button>
+
+          <button type="button" onclick="restartExam()" class="w-full sm:w-auto px-6 py-3 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-bold text-xs uppercase tracking-wider chamfer-btn">
+            <i class="fa-solid fa-rotate-left mr-1.5"></i>
+            <span>Ulangi Ujian</span>
+          </button>
+
+          <a href="index.html" class="w-full sm:w-auto px-6 py-3 bg-brand-red hover:bg-brand-crimson text-white font-bold text-xs uppercase tracking-wider chamfer-btn shadow-glow-red text-center">
+            <i class="fa-solid fa-house mr-1.5"></i>
+            <span>Portal Materi</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ==========================================
+       JAVASCRIPT CBT ENGINE & BANK SOAL BAB 2
+  =========================================== -->
+  <script>
+    /**
+     * BANK 25 BUTIR SOAL & KUNCI BAB 2 (MORAN & SHAPIRO)
+     */
+    const quizData = [
+      {
+        id: 1,
+        question: "Dalam perspektif termodinamika teknik, energi yang tersimpan dalam suatu sistem secara makroskopik terutama terdiri atas ...",
+        options: [
+          "A. Energi kalor, energi kerja, dan energi listrik",
+          "B. Energi internal, energi kinetik, dan energi potensial gravitasi",
+          "C. Energi tekanan, energi volume, dan energi temperatur",
+          "D. Energi mekanik, energi kalor, dan energi massa"
+        ],
+        correct: 1 // B
+      },
+      {
+        id: 2,
+        question: "Sebuah benda bermassa m bergerak dengan kecepatan V. Persamaan energi kinetiknya adalah ...",
+        options: [
+          "A. KE = mV",
+          "B. KE = mV²",
+          "C. KE = ½mV²",
+          "D. KE = ½mV"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 3,
+        question: "Jika kecepatan suatu benda meningkat dua kali lipat sementara massanya tetap, energi kinetiknya akan menjadi ...",
+        options: [
+          "A. 2 kali lebih besar",
+          "B. 3 kali lebih besar",
+          "C. 4 kali lebih besar",
+          "D. 8 kali lebih besar"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 4,
+        question: "Sebuah benda bermassa m berada pada ketinggian z terhadap bidang referensi. Energi potensial gravitasinya adalah ...",
+        options: [
+          "A. PE = mgz",
+          "B. PE = ½mgz",
+          "C. PE = mz/g",
+          "D. PE = mg/z"
+        ],
+        correct: 0 // A
+      },
+      {
+        id: 5,
+        question: "Energi internal suatu sistem terutama berkaitan dengan ...",
+        options: [
+          "A. Gerakan sistem secara keseluruhan",
+          "B. Posisi sistem terhadap permukaan bumi",
+          "C. Energi pada tingkat mikroskopik yang terkait dengan molekul, atom, dan interaksinya",
+          "D. Kerja yang dilakukan sistem terhadap lingkungan"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 6,
+        question: "Manakah pernyataan yang paling tepat mengenai sifat energi?",
+        options: [
+          "A. Energi merupakan fungsi lintasan",
+          "B. Energi merupakan sifat sistem",
+          "C. Energi hanya dapat berpindah melalui kalor",
+          "D. Energi tidak dapat berubah bentuk"
+        ],
+        correct: 1 // B
+      },
+      {
+        id: 7,
+        question: "Dalam terminologi termodinamika, kerja dan kalor merupakan ...",
+        options: [
+          "A. Sifat intensif sistem",
+          "B. Sifat ekstensif sistem",
+          "C. Bentuk energi yang tersimpan dalam sistem",
+          "D. Cara atau mekanisme perpindahan energi melintasi batas sistem"
+        ],
+        correct: 3 // D
+      },
+      {
+        id: 8,
+        question: "Sebuah gas dalam piston–silinder mengalami ekspansi. Untuk proses kuasi-setimbang, kerja batas dapat dinyatakan sebagai ...",
+        options: [
+          "A. W = ∫V dp",
+          "B. W = ∫p dV",
+          "C. W = p/V",
+          "D. W = V/p"
+        ],
+        correct: 1 // B
+      },
+      {
+        id: 9,
+        question: "Apabila gas mengalami ekspansi maka kerja yang dilakukan oleh sistem adalah ...",
+        options: [
+          "A. Positif",
+          "B. Negatif",
+          "C. Nol",
+          "D. Selalu sama dengan kalor"
+        ],
+        correct: 0 // A
+      },
+      {
+        id: 10,
+        question: "Gas dalam piston–silinder dikompresi sehingga volumenya berkurang. Kerja yang dilakukan oleh sistem bernilai ...",
+        options: [
+          "A. Positif",
+          "B. Negatif",
+          "C. Nol",
+          "D. Tidak dapat ditentukan"
+        ],
+        correct: 1 // B
+      },
+      {
+        id: 11,
+        question: "Pada proses ekspansi atau kompresi kuasi-setimbang, secara geometris kerja batas dapat diinterpretasikan sebagai ...",
+        options: [
+          "A. Kemiringan kurva p–V",
+          "B. Luas di bawah kurva proses pada diagram p–V",
+          "C. Luas di atas kurva proses",
+          "D. Perubahan tekanan dibagi volume"
+        ],
+        correct: 1 // B
+      },
+      {
+        id: 12,
+        question: "Gas berpindah dari keadaan 1 ke keadaan 2 melalui dua lintasan berbeda pada diagram p–V. Pernyataan yang benar adalah ...",
+        options: [
+          "A. Kerja selalu sama karena keadaan awal dan akhir sama",
+          "B. Kerja tidak bergantung pada lintasan",
+          "C. Kerja dapat berbeda karena bergantung pada lintasan proses",
+          "D. Kerja merupakan sifat intensif"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 13,
+        question: "Suatu proses dengan hubungan tekanan-volume pVⁿ = konstan disebut ...",
+        options: [
+          "A. Proses isokhorik",
+          "B. Proses isobarik",
+          "C. Proses polytropik",
+          "D. Proses isentropik"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 14,
+        question: "Perpindahan energi melalui kalor terjadi karena adanya ...",
+        options: [
+          "A. Perbedaan massa",
+          "B. Perbedaan volume",
+          "C. Perbedaan temperatur",
+          "D. Perbedaan energi kinetik saja"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 15,
+        question: "Apabila kalor ditransfer ke dalam sistem, maka menurut konvensi standar...",
+        options: [
+          "A. Q < 0",
+          "B. Q = 0",
+          "C. Q > 0",
+          "D. Q selalu sama dengan W"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 16,
+        question: "Pada proses adiabatik, perpindahan energi melalui kalor adalah ...",
+        options: [
+          "A. Q > 0",
+          "B. Q < 0",
+          "C. Q = 0",
+          "D. Q = W"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 17,
+        question: "Mekanisme perpindahan kalor yang dibahas dalam Bab 2 meliputi ...",
+        options: [
+          "A. Konduksi, konveksi, dan radiasi",
+          "B. Konduksi, evaporasi, dan sublimasi",
+          "C. Konveksi, ekspansi, dan kompresi",
+          "D. Radiasi, difusi, dan evaporasi"
+        ],
+        correct: 0 // A
+      },
+      {
+        id: 18,
+        question: "Hukum I Termodinamika pada dasarnya merupakan prinsip ...",
+        options: [
+          "A. Kekekalan massa",
+          "B. Kekekalan momentum",
+          "C. Kekekalan energi",
+          "D. Kesetimbangan temperatur"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 19,
+        question: "Dengan konvensi Q positif menuju sistem dan W positif keluar dari sistem, persamaan neraca energi sistem tertutup adalah ...",
+        options: [
+          "A. E₂ − E₁ = Q + W",
+          "B. E₂ − E₁ = Q − W",
+          "C. E₂ − E₁ = W − Q",
+          "D. E₂ − E₁ = QW"
+        ],
+        correct: 1 // B
+      },
+      {
+        id: 20,
+        question: "Jika perubahan energi kinetik dan energi potensial dapat diabaikan, persamaan Hukum I menjadi ...",
+        options: [
+          "A. ΔU = Q − W",
+          "B. ΔU = Q + W",
+          "C. ΔU = W − Q",
+          "D. ΔU = QW"
+        ],
+        correct: 0 // A
+      },
+      {
+        id: 21,
+        question: "Sebuah sistem menerima kalor sebesar 500 kJ dan melakukan kerja sebesar 200 kJ. Perubahan energi internal sistem adalah ...",
+        options: [
+          "A. 300 kJ",
+          "B. 500 kJ",
+          "C. 700 kJ",
+          "D. −300 kJ"
+        ],
+        correct: 0 // A
+      },
+      {
+        id: 22,
+        question: "Sebuah sistem tertutup mengalami proses adiabatik dan melakukan kerja sebesar 150 kJ. Jika perubahan energi kinetik dan energi potensial diabaikan, maka perubahan energi internalnya adalah ...",
+        options: [
+          "A. −150 kJ",
+          "B. 0 kJ",
+          "C. +150 kJ",
+          "D. +300 kJ"
+        ],
+        correct: 0 // A
+      },
+      {
+        id: 23,
+        question: "Untuk sistem tertutup, perubahan total energi dapat dituliskan sebagai ...",
+        options: [
+          "A. ΔE = ΔU + ΔKE + ΔPE",
+          "B. ΔE = Q + W + ΔU",
+          "C. ΔE = QW",
+          "D. ΔE = ΔKE − ΔPE"
+        ],
+        correct: 0 // A
+      },
+      {
+        id: 24,
+        question: "Suatu sistem mengalami siklus termodinamika dan kembali ke keadaan awal. Maka perubahan energi sistem selama satu siklus adalah ...",
+        options: [
+          "A. Positif",
+          "B. Negatif",
+          "C. Nol",
+          "D. Selalu sama dengan kalor masuk"
+        ],
+        correct: 2 // C
+      },
+      {
+        id: 25,
+        question: "Sebuah sistem menerima energi melalui kalor sebesar 800 kJ dan mengeluarkan energi melalui kerja sebesar 300 kJ. Jika perubahan energi kinetik dan potensial diabaikan, maka ...",
+        options: [
+          "A. Energi internal turun 500 kJ",
+          "B. Energi internal naik 500 kJ",
+          "C. Energi internal naik 1.100 kJ",
+          "D. Energi internal tetap"
+        ],
+        correct: 1 // B
+      }
+    ];
+
+    // Status State CBT
+    let currentQuestionIdx = 0;
+    let userAnswers = new Array(quizData.length).fill(null); // Menyimpan indeks opsi yang dipilih (0, 1, 2, 3)
+    let flaggedQuestions = new Array(quizData.length).fill(false); // boolean per nomor
+    let isReviewMode = false;
+
+    // Timer (30 Menit = 1800 detik)
+    let totalSeconds = 30 * 60;
+    let timerInterval = null;
+
+    // DOM Elements
+    const questionNumberGrid = document.getElementById('questionNumberGrid');
+    const currentQuestionLabel = document.getElementById('currentQuestionLabel');
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const answeredCounter = document.getElementById('answeredCounter');
+    const countdownTimer = document.getElementById('countdownTimer');
+    const btnPrevQuestion = document.getElementById('btnPrevQuestion');
+    const btnNextQuestion = document.getElementById('btnNextQuestion');
+    const btnFlagQuestion = document.getElementById('btnFlagQuestion');
+    const flagIcon = document.getElementById('flagIcon');
+    const flagText = document.getElementById('flagText');
+
+    const confirmModal = document.getElementById('confirmModal');
+    const resultModal = document.getElementById('resultModal');
+
+    // Inisialisasi CBT
+    function initCBT() {
+      renderNumberGrid();
+      loadQuestion(0);
+      startTimer();
+    }
+
+    // Render Grid Nomor 1 - 25
+    function renderNumberGrid() {
+      questionNumberGrid.innerHTML = '';
+      quizData.forEach((q, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.id = `grid-btn-${idx}`;
+        btn.textContent = idx + 1;
+        btn.className = getGridTileClass(idx);
+        btn.onclick = () => navigateQuestion(idx);
+        questionNumberGrid.appendChild(btn);
+      });
+      updateAnsweredCount();
+    }
+
+    // Penentuan Class CSS untuk Tile Nomor Soal
+    function getGridTileClass(idx) {
+      const isCurrent = (idx === currentQuestionIdx);
+      const isAnswered = (userAnswers[idx] !== null);
+      const isFlagged = flaggedQuestions[idx];
+
+      let base = "h-11 flex items-center justify-center font-mono text-xs font-bold transition-all chamfer-tag ";
+
+      if (isCurrent) {
+        return base + "border-2 border-brand-red bg-red-50 text-brand-red ring-2 ring-brand-red/20 shadow-sm";
+      }
+      if (isFlagged) {
+        return base + "border-2 border-amber-500 bg-amber-100 text-amber-900";
+      }
+      if (isAnswered) {
+        return base + "bg-brand-charcoal text-white border border-brand-charcoal";
+      }
+      return base + "bg-white border border-slate-300 text-slate-700 hover:border-slate-400";
+    }
+
+    // Muat Pertanyaan Tertentu
+    function loadQuestion(idx) {
+      currentQuestionIdx = idx;
+      const q = quizData[idx];
+
+      // Update Label & Teks
+      currentQuestionLabel.textContent = `Soal Nomor ${String(idx + 1).padStart(2, '0')}`;
+      questionText.textContent = q.question;
+
+      // Update Nav Buttons
+      btnPrevQuestion.disabled = (idx === 0);
+      btnNextQuestion.disabled = (idx === quizData.length - 1);
+
+      // Update Tombol Flag/Ragu
+      updateFlagButtonState();
+
+      // Render Pilihan Jawaban (A, B, C, D)
+      optionsContainer.innerHTML = '';
+      const optionLetters = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((optText, optIdx) => {
+        const isSelected = (userAnswers[idx] === optIdx);
+        const card = document.createElement('div');
+        
+        let cardStyle = "p-4 border chamfer-card transition-all cursor-pointer flex items-center gap-4 select-none ";
+
+        if (isReviewMode) {
+          // Review mode styling
+          if (optIdx === q.correct) {
+            cardStyle += "border-2 border-emerald-600 bg-emerald-50/70 text-emerald-950 font-semibold ";
+          } else if (isSelected && optIdx !== q.correct) {
+            cardStyle += "border-2 border-rose-600 bg-rose-50/70 text-rose-950 ";
+          } else {
+            cardStyle += "border-slate-200 bg-white opacity-60 ";
+          }
+        } else {
+          // Active exam mode styling
+          if (isSelected) {
+            cardStyle += "border-2 border-brand-red bg-red-50/40 shadow-sm text-brand-charcoal font-medium ";
+          } else {
+            cardStyle += "border-slate-200 bg-white hover:border-brand-red/40 hover:bg-slate-50/60 text-slate-700 ";
+          }
+        }
+
+        card.className = cardStyle;
+
+        // Custom Radio & Label
+        card.innerHTML = `
+          <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-brand-red' : 'border-slate-400'}">
+            <div class="w-2.5 h-2.5 rounded-full ${isSelected ? 'bg-brand-red' : 'bg-transparent'}"></div>
+          </div>
+          <div class="w-7 h-7 chamfer-tag flex items-center justify-center font-mono font-bold text-xs shrink-0 ${isSelected ? 'bg-brand-red text-white' : 'bg-slate-100 text-slate-600'}">
+            ${optionLetters[optIdx]}
+          </div>
+          <span class="text-sm sm:text-base leading-relaxed flex-1">${optText.replace(/^[A-D]\.\s*/, '')}</span>
+          ${isReviewMode && optIdx === q.correct ? '<span class="text-xs font-tech font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 chamfer-tag">KUNCI BENAR</span>' : ''}
+          ${isReviewMode && isSelected && optIdx !== q.correct ? '<span class="text-xs font-tech font-bold text-rose-700 bg-rose-100 px-2 py-0.5 chamfer-tag">PILIHAN ANDA</span>' : ''}
+        `;
+
+        if (!isReviewMode) {
+          card.onclick = () => selectOption(optIdx);
+        }
+
+        optionsContainer.appendChild(card);
+      });
+
+      // Refresh seluruh tile di sidebar
+      renderNumberGrid();
+    }
+
+    // Pilih Opsi Jawaban
+    function selectOption(optIdx) {
+      if (isReviewMode) return;
+      userAnswers[currentQuestionIdx] = optIdx;
+      loadQuestion(currentQuestionIdx);
+    }
+
+    // Navigasi ke Soal Tertentu
+    function navigateQuestion(idx) {
+      if (idx < 0 || idx >= quizData.length) return;
+      loadQuestion(idx);
+    }
+
+    // Tandai / Lepas Ragu-Ragu
+    function toggleFlagCurrentQuestion() {
+      if (isReviewMode) return;
+      flaggedQuestions[currentQuestionIdx] = !flaggedQuestions[currentQuestionIdx];
+      updateFlagButtonState();
+      renderNumberGrid();
+    }
+
+    function updateFlagButtonState() {
+      const isFlagged = flaggedQuestions[currentQuestionIdx];
+      if (isFlagged) {
+        btnFlagQuestion.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded text-xs font-tech font-bold transition-all border-2 border-amber-500 bg-amber-50 text-amber-700";
+        flagIcon.className = "fa-solid fa-flag text-xs text-amber-500";
+        flagText.textContent = "Ditandai Ragu";
+      } else {
+        btnFlagQuestion.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded text-xs font-tech font-bold transition-all border border-slate-300 text-slate-600 hover:border-amber-500 hover:text-amber-600";
+        flagIcon.className = "fa-regular fa-flag text-xs";
+        flagText.textContent = "Tandai Ragu";
+      }
+    }
+
+    function updateAnsweredCount() {
+      const count = userAnswers.filter(ans => ans !== null).length;
+      answeredCounter.textContent = count;
+    }
+
+    // Modal Konfirmasi Pengumpulan
+    function promptSubmitExam() {
+      if (isReviewMode) return;
+      const answered = userAnswers.filter(ans => ans !== null).length;
+      const flagged = flaggedQuestions.filter(f => f === true).length;
+      const empty = quizData.length - answered;
+
+      document.getElementById('modalStatAnswered').textContent = answered;
+      document.getElementById('modalStatFlagged').textContent = flagged;
+      document.getElementById('modalStatEmpty').textContent = empty;
+
+      confirmModal.classList.remove('hidden');
+      confirmModal.classList.add('flex');
+    }
+
+    function closeConfirmModal() {
+      confirmModal.classList.add('hidden');
+      confirmModal.classList.remove('flex');
+    }
+
+    // Eksekusi Submit & Hitung Skor
+    function executeSubmitExam() {
+      closeConfirmModal();
+      clearInterval(timerInterval);
+
+      let correctCount = 0;
+      let wrongCount = 0;
+      let emptyCount = 0;
+
+      quizData.forEach((q, idx) => {
+        const ans = userAnswers[idx];
+        if (ans === null) {
+          emptyCount++;
+        } else if (ans === q.correct) {
+          correctCount++;
+        } else {
+          wrongCount++;
+        }
+      });
+
+      // Kalkulasi Nilai Skala 0 - 100 (4 poin per soal)
+      const score = Math.round((correctCount / quizData.length) * 100);
+
+      document.getElementById('finalScoreNumber').textContent = score;
+      document.getElementById('resultCountCorrect').textContent = correctCount;
+      document.getElementById('resultCountWrong').textContent = wrongCount;
+      document.getElementById('resultCountEmpty').textContent = emptyCount;
+
+      const predEl = document.getElementById('finalScorePredicate');
+      const adviceEl = document.getElementById('resultAdviceText');
+
+      if (score >= 85) {
+        predEl.textContent = "Predikat: A (Sangat Memuaskan)";
+        predEl.className = "inline-block mt-2 px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-tech font-bold uppercase chamfer-tag";
+        adviceEl.textContent = "Luar biasa! Pemahaman Anda mengenai konsep neraca energi, kerja batas, dan sifat termodinamika Bab 2 sudah sempurna.";
+      } else if (score >= 70) {
+        predEl.textContent = "Predikat: B (Lulus / Kompeten)";
+        predEl.className = "inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-xs font-tech font-bold uppercase chamfer-tag";
+        adviceEl.textContent = "Bagus! Anda telah menguasai sebagian besar materi termodinamika teknik dengan baik. Review kembali soal yang keliru.";
+      } else if (score >= 55) {
+        predEl.textContent = "Predikat: C (Cukup)";
+        predEl.className = "inline-block mt-2 px-3 py-1 bg-amber-100 text-amber-800 text-xs font-tech font-bold uppercase chamfer-tag";
+        adviceEl.textContent = "Pemahaman Anda cukup, namun disarankan untuk meninjau kembali modul kerja batas dan konvensi tanda Hukum I.";
+      } else {
+        predEl.textContent = "Predikat: D (Perlu Remediasi)";
+        predEl.className = "inline-block mt-2 px-3 py-1 bg-rose-100 text-rose-800 text-xs font-tech font-bold uppercase chamfer-tag";
+        adviceEl.textContent = "Jangan berkecil hati. Buka kembali slide materi Modul 2 di beranda dan ulangi ujian evaluasi.";
+      }
+
+      resultModal.classList.remove('hidden');
+      resultModal.classList.add('flex');
+    }
+
+    // Masuk ke Mode Review Pembahasan
+    function enterReviewMode() {
+      isReviewMode = true;
+      resultModal.classList.add('hidden');
+      resultModal.classList.remove('flex');
+      
+      // Update UI untuk Review Mode
+      document.getElementById('btnSubmitFinal').classList.add('hidden');
+      btnFlagQuestion.classList.add('hidden');
+
+      loadQuestion(0);
+    }
+
+    // Restart Ujian dari Awal
+    function restartExam() {
+      userAnswers = new Array(quizData.length).fill(null);
+      flaggedQuestions = new Array(quizData.length).fill(false);
+      isReviewMode = false;
+      totalSeconds = 30 * 60;
+
+      document.getElementById('btnSubmitFinal').classList.remove('hidden');
+      btnFlagQuestion.classList.remove('hidden');
+
+      resultModal.classList.add('hidden');
+      resultModal.classList.remove('flex');
+
+      initCBT();
+    }
+
+    // Countdown Timer Logic
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        totalSeconds--;
+        if (totalSeconds <= 0) {
+          clearInterval(timerInterval);
+          countdownTimer.textContent = "00:00";
+          alert("Waktu pengerjaan ujian telah habis! Sistem akan mengumpulkan jawaban Anda secara otomatis.");
+          executeSubmitExam();
+          return;
+        }
+
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        countdownTimer.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        if (totalSeconds <= 300) { // Kurang dari 5 menit
+          countdownTimer.classList.add('timer-warning');
+        }
+      }, 1000);
+    }
+
+    // Mobile Drawer Toggle
+    const btnToggleNavDrawer = document.getElementById('btnToggleNavDrawer');
+    const sidebarDrawer = document.getElementById('sidebarDrawer');
+
+    btnToggleNavDrawer.addEventListener('click', () => {
+      sidebarDrawer.classList.toggle('hidden');
+    });
+
+    // Jalankan Saat Halaman Siap
+    document.addEventListener('DOMContentLoaded', initCBT);
+  </script>
+
+</body>
+</html>
